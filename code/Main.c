@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
     cute_tiled_map_t* map = cute_tiled_load_map_from_file("../data/export/basic.json", NULL);
 
 
-    printf("%d\n", map->height);
+    printf("%d\n", map->tileheight);
     
     return 0;
 }
