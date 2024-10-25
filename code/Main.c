@@ -29,7 +29,10 @@ int main(void)
     cute_tiled_map_t* map = cute_tiled_load_map_from_file("../data/export/basic.json", NULL);
     cute_tiled_layer_t* layer = map->layers;
 
-    Rectangle srcTilemapRec = { 0, 0, layer->width, layer->height };
+    Texture2D tilemapTexture = LoadTexture("../graphics/tilesets/tiles.png");
+    Rectangle srcTilemapRec = { (layer->id * layer->width), 0, layer->width, layer->height };
+    Rectangle destTilemapRec = { 0, 0, layer->width, layer->height };
+    Vector2 tileOrigin = { 0, 0 };
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -44,6 +47,8 @@ int main(void)
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
+
+            DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
 
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
