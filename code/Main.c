@@ -30,7 +30,13 @@ int main(void)
     cute_tiled_layer_t* layer = map->layers;
 
     Texture2D tilemapTexture = LoadTexture("../graphics/tilesets/tiles.png");
-    Rectangle srcTilemapRec = { (layer->id * layer->width), 0, layer->width, layer->height };
+    // TODO: Correct the X and Y of the srcTilemapRec
+    
+
+    int numColsTilesInTilemapTexture = (tilemapTexture.width / map->tilewidth) - 1;
+    int numRowsTilesInTilemapTexture = (tilemapTexture.height / map->tileheight) - 1;
+
+    Rectangle srcTilemapRec = { 0, 0, layer->width, layer->height };
     Rectangle destTilemapRec = { 0, 0, layer->width, layer->height };
     Vector2 tileOrigin = { 0, 0 };
 
@@ -41,6 +47,16 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
+        // int i = 0, j = 0;
+
+        // for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
+        //     for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
+        //         if (i + j == layer->id) {
+        //             srcTilemapRec.x = 1 * map->tilewidth;
+        //             srcTilemapRec.y = 1 * map->tileheight;
+        //         }
+        //     }
+        // }
 
         // Draw
         //----------------------------------------------------------------------------------
@@ -58,6 +74,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    UnloadTexture(tilemapTexture);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
