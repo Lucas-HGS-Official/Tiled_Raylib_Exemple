@@ -47,16 +47,23 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
-        // int i = 0, j = 0;
+        
+        int i = 0, j = 0, aux = 0;
 
-        // for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
-        //     for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
-        //         if (i + j == layer->id) {
-        //             srcTilemapRec.x = 1 * map->tilewidth;
-        //             srcTilemapRec.y = 1 * map->tileheight;
-        //         }
-        //     }
-        // }
+        for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
+            for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
+                if (aux == layer->data[0]) {
+                    srcTilemapRec.x = j * map->tilewidth;
+                    srcTilemapRec.y = i * map->tileheight;
+                    break;
+
+                    printf("\ni = %d and j = %d \n\n", i, j);
+                }
+
+                aux++;
+            }
+            aux++;
+        }
 
         // Draw
         //----------------------------------------------------------------------------------
