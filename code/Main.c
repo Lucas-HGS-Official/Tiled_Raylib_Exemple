@@ -18,8 +18,8 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1366;
+    const int screenHeight = 768;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
@@ -36,8 +36,8 @@ int main(void)
     int numColsTilesInTilemapTexture = (tilemapTexture.width / map->tilewidth) - 1;
     int numRowsTilesInTilemapTexture = (tilemapTexture.height / map->tileheight) - 1;
 
-    Rectangle srcTilemapRec = { 0, 0, layer->width, layer->height };
-    Rectangle destTilemapRec = { 0, 0, layer->width, layer->height };
+    Rectangle srcTilemapRec = { 0, 0, map->tilewidth, map->tileheight };
+    Rectangle destTilemapRec = { 0, 0, map->tilewidth, map->tileheight };
     Vector2 tileOrigin = { 0, 0 };
 
     // Main game loop
@@ -61,23 +61,25 @@ int main(void)
 
             for (x = 0; x < layer->height * layer->width; x++) {
 
-                for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
-                    for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
+                for (i = 0; i < numRowsTilesInTilemapTexture; i++) {
+                    for (j = 0; j < numColsTilesInTilemapTexture; j++) {
 
-                        if (aux == layer->data[x]) {
+                        if (aux == layer->data[0]-1) {
                             srcTilemapRec.x = j * map->tilewidth;
                             srcTilemapRec.y = i * map->tileheight;
 
+                            printf("\n%d\n\n", layer->data[0]);
+
                             DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
 
-                            destTilemapRec.x += map->tilewidth;
-                            if (destTilemapRec.x >= layer->width * map->tilewidth) {
-                                destTilemapRec.x = 0;
-                                destTilemapRec.y += map->tileheight;
-                            }
-                            if (destTilemapRec.y >= layer->height * map->tileheight) {
-                                destTilemapRec.y = 0;
-                            }
+                            // destTilemapRec.x += map->tilewidth;
+                            // if (destTilemapRec.x >= layer->width * map->tilewidth) {
+                            //     destTilemapRec.x = 0;
+                            //     destTilemapRec.y += map->tileheight;
+                            // }
+                            // if (destTilemapRec.y >= layer->height * map->tileheight) {
+                            //     destTilemapRec.y = 0;
+                            // }
 
                         }
 
