@@ -48,22 +48,8 @@ int main(void)
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
         
-        int i = 0, j = 0, aux = 0;
+        
 
-        for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
-            for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
-                if (aux == layer->data[0]) {
-                    srcTilemapRec.x = j * map->tilewidth;
-                    srcTilemapRec.y = i * map->tileheight;
-                    break;
-
-                    printf("\ni = %d and j = %d \n\n", i, j);
-                }
-
-                aux++;
-            }
-            aux++;
-        }
 
         // Draw
         //----------------------------------------------------------------------------------
@@ -71,7 +57,36 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
+            int i = 0, j = 0, aux = 0, x = 0;
+
+            for (x = 0; x < layer->height * layer->width; x++) {
+
+                for (i = 0; i <= numRowsTilesInTilemapTexture; i++) {
+                    for (j = 0; j <= numColsTilesInTilemapTexture; j++) {
+
+                        if (aux == layer->data[x]) {
+                            srcTilemapRec.x = j * map->tilewidth;
+                            srcTilemapRec.y = i * map->tileheight;
+
+                            DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
+
+                            destTilemapRec.x += map->tilewidth;
+                            if (destTilemapRec.x >= layer->width * map->tilewidth) {
+                                destTilemapRec.x = 0;
+                                destTilemapRec.y += map->tileheight;
+                            }
+                            if (destTilemapRec.y >= layer->height * map->tileheight) {
+                                destTilemapRec.y = 0;
+                            }
+
+                        }
+
+                        aux++;
+                    }
+                    aux++;
+                }
+            }
+
 
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
