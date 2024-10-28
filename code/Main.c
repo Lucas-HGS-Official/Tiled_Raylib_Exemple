@@ -49,7 +49,6 @@ int main(void)
         // Update
         //----------------------------------------------------------------------------------
 
-        i = 0, j = 0, aux = 0;
 
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
@@ -59,18 +58,19 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            for(x = 0; x < 1119; x++) {
+            for(x = 0; x < layer->height * layer->width; x++) {
+
+                aux = 1;
 
                 for (i = 0; i < numRowsTilesInTilemapTexture-1; i++) {
                     for (j = 0; j < numColsTilesInTilemapTexture-1; j++) {
 
-                        if (aux == layer->data[x]-1) {
+                        if (aux == layer->data[x]) {
                             srcTilemapRec.x = j * map->tilewidth;
                             srcTilemapRec.y = i * map->tileheight;
-                            aux = 0;
 
                         
-                            printf("\n%d\n\n", x);
+                            printf("\n%d | %d\n\n", i, j);
 
                             // Draw
                             //----------------------------------------------------------------------------------
@@ -85,7 +85,6 @@ int main(void)
                             if (destTilemapRec.y >= screenHeight) {
                                 destTilemapRec.y = 0;
                             }
-                            break;
                         }
                         
 
@@ -97,7 +96,6 @@ int main(void)
                             destTilemapRec.x = 0;
                             destTilemapRec.y += map->tileheight;
                         }
-                        break;
                     }
 
                     aux++;
