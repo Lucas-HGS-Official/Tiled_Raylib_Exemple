@@ -23,7 +23,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(3);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     cute_tiled_map_t* map = cute_tiled_load_map_from_file("../data/export/basic.json", NULL);
@@ -33,67 +33,80 @@ int main(void)
     // TODO: Correct the X and Y of the srcTilemapRec
     
 
-    int numColsTilesInTilemapTexture = (tilemapTexture.width / map->tilewidth) - 1;
-    int numRowsTilesInTilemapTexture = (tilemapTexture.height / map->tileheight) - 1;
+    int numColsTilesInTilemapTexture = (tilemapTexture.width / map->tilewidth);
+    int numRowsTilesInTilemapTexture = (tilemapTexture.height / map->tileheight);
 
     Rectangle srcTilemapRec = { 0, 0, map->tilewidth, map->tileheight };
     Rectangle destTilemapRec = { 0, 0, map->tilewidth, map->tileheight };
     Vector2 tileOrigin = { 0, 0 };
+
+    int i = 0, j = 0, aux = 0, x = 0;
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
+
+        i = 0, j = 0, aux = 0;
+
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
-        
-        
 
 
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            int i = 0, j = 0, aux = 0, x = 0;
+            for(x = 0; x < 1119; x++) {
 
-            for (x = 0; x < layer->height * layer->width; x++) {
+                for (i = 0; i < numRowsTilesInTilemapTexture-1; i++) {
+                    for (j = 0; j < numColsTilesInTilemapTexture-1; j++) {
 
-                for (i = 0; i < numRowsTilesInTilemapTexture; i++) {
-                    for (j = 0; j < numColsTilesInTilemapTexture; j++) {
-
-                        if (aux == layer->data[0]-1) {
+                        if (aux == layer->data[x]-1) {
                             srcTilemapRec.x = j * map->tilewidth;
                             srcTilemapRec.y = i * map->tileheight;
+                            aux = 0;
 
-                            printf("\n%d\n\n", layer->data[0]);
+                        
+                            printf("\n%d\n\n", x);
 
-                            DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
+                            // Draw
+                            //----------------------------------------------------------------------------------
 
-                            // destTilemapRec.x += map->tilewidth;
-                            // if (destTilemapRec.x >= layer->width * map->tilewidth) {
-                            //     destTilemapRec.x = 0;
-                            //     destTilemapRec.y += map->tileheight;
-                            // }
-                            // if (destTilemapRec.y >= layer->height * map->tileheight) {
-                            //     destTilemapRec.y = 0;
-                            // }
 
+                                DrawTexturePro(tilemapTexture, srcTilemapRec, destTilemapRec, tileOrigin, 0.f, WHITE);
+
+
+                            //----------------------------------------------------------------------------------
+
+                            
+                            if (destTilemapRec.y >= screenHeight) {
+                                destTilemapRec.y = 0;
+                            }
+                            break;
                         }
+                        
 
                         aux++;
                     }
+                    if (aux == layer->data[x]-1) {
+                        destTilemapRec.x += map->tilewidth;
+                        if (destTilemapRec.x >= screenWidth) {
+                            destTilemapRec.x = 0;
+                            destTilemapRec.y += map->tileheight;
+                        }
+                        break;
+                    }
+
                     aux++;
                 }
             }
-
-
+        
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
