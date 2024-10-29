@@ -75,6 +75,9 @@ int main(void)
         // Update
         //----------------------------------------------------------------------------------
 
+        destTilemapRec.x = 0;
+        destTilemapRec.y = 0;
+
 
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
@@ -116,14 +119,14 @@ int main(void)
                 }
 
                 // TODO: draw the next tile in a new position
-                // destTilemapRec.x += map->tilewidth;
-                // if (destTilemapRec.x > layer->width) {
-                //     destTilemapRec.x = 0;
-                //     destTilemapRec.y += map->tileheight;
-                //     if (destTilemapRec.x > layer->width) {
-                //         destTilemapRec.y = 0;
-                //     }
-                // }
+                destTilemapRec.x += map->tilewidth;
+                if (destTilemapRec.x > layer->width * map->tilewidth) {
+                    destTilemapRec.x = 0;
+                    destTilemapRec.y += map->tileheight;
+                    if (destTilemapRec.y > layer->height * map->tileheight) {
+                        destTilemapRec.y = 0;
+                    }
+                }
             }
         
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
