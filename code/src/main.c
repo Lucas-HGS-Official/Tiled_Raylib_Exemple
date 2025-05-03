@@ -4,42 +4,6 @@
 #define CUTE_TILED_IMPLEMENTATION
 #include "cute_tiled.h"
 
-
-// int main(int argc, char const *argv[])
-// {
-//     cute_tiled_map_t* map = cute_tiled_load_map_from_file("../data/export/basic.json", NULL);
-//     cute_tiled_layer_t* layer = map->layers;
-
-//     int i = 0, j = 0, aux = 0, x = 0;
-
-
-//     for(x = 0; x < layer->height * layer->width; x++) {
-
-//         aux = 1;
-
-//         for (i = 0; i < 13; i++) {
-//             for (j = 0; j < 23; j++) {
-
-//                 if (aux == layer->data[x]) {
-                    
-//                     printf("\nx = %d with data = %d at j(x) = %d and i(y) = %d", x, layer->data[x], j, i);
-                    
-//                     break;
-//                 }
-        
-
-//                 aux++;
-//             }
-//             if (aux == layer->data[x]) {
-//                 break;
-//             }
-//         }
-//     }
-
-
-//     return 0;
-// }
-
 int main(void)
 {
     // Initialization
