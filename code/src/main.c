@@ -16,10 +16,10 @@ int main(void)
     SetTargetFPS(3);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    cute_tiled_map_t* map = cute_tiled_load_map_from_file("../data/export/basic.json", NULL);
+    cute_tiled_map_t* map = cute_tiled_load_map_from_file("data/export/basic.json", NULL);
     cute_tiled_layer_t* layer = map->layers;
 
-    Texture2D tilemapTexture = LoadTexture("../graphics/tilesets/tiles.png");
+    Texture2D tilemapTexture = LoadTexture("graphics/tilesets/tiles.png");
     // TODO: Correct the X and Y of the srcTilemapRec
     
 
